@@ -1,8 +1,12 @@
 import Carousel from '@/components/carousel'
+import Gallery from '@/components/super-carousel'
 
 const Dashboard = () => {
     return (
-        <Carousel />
+        <div>
+            <Carousel />
+            <Gallery />
+        </div>
     )
 }
 

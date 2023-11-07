@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  genre       String
+  imageUrl    String
+  name        String
+  overview    String
+  releaseDate String
+  runtime     Int
+  trailerUrl  String
+  CartItem    CartItem[]
+
+  @@map("movies")
+}
+
+model Cart {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  movieId   String   @db.ObjectId
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  cartId    String   @db.ObjectId
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("cartitems")
+}

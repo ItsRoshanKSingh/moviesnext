@@ -1,3 +1,5 @@
+import styles from "@/lib/style/style"
+
 const pink_gradiant = 'bg-gradient-to-r from-pink-300 to-pink-600 filter blur-[900px]'
 const white_gradiant = 'bg-white bg-opacity-60 filter blur-[750px]'
 const blue_gradiant = 'bg-gradient-to-t from-transparent via-blue-800 to-transparent filter blur-[123px]'
@@ -5,61 +7,30 @@ const black_gradiant = 'bg-gradient-to-t from-transparent via-black-800 to-trans
 const bg_discount_gradient = 'bg-gradient-to-tr from-gray-700 to-indigo-900'
 const text_gradient = ' bg-gradient-to-br from-teal-100 via-teal-200 to-teal-500 text-transparent bg-clip-text'
 
-
-const styles = {
-    boxWidth: "xl:max-w-[1280px] w-full",
-
-    heading2: "font-poppins font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] w-full",
-    paragraph: "font-poppins font-normal text-dimWhite text-[18px] leading-[30.8px]",
-
-    flexCenter: "flex justify-center items-center",
-    flexStart: "flex justify-center items-start",
-
-    paddingX: "sm:px-16 px-6",
-    paddingY: "sm:py-16 py-6",
-    padding: "sm:px-16 px-6 sm:py-12 py-4",
-
-    marginX: "sm:mx-16 mx-6",
-    marginY: "sm:my-16 my-6",
-};
-
 interface moviesdbprops {
     movie: {
-        title: string,
-        director: string,
-        year: number,
-        genre: string[],
-        rating: number,
-        stars: string[],
-        runtime: number,
-        overview: string,
-        release_date: string,
-        trailer: string,
-        images: string[],
+        genre: String
+        imageUrl: String
+        name: String
+        overview: String
+        releaseDate: String
+        runtime: number
+        trailerUrl: String
     }
 }
 
 const HeroSection = ({ movie }: moviesdbprops) => {
-    return (
-        <section id="home" className={`flex md:flex-row flex-col ${styles.paddingY}`}>
-            <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
 
-                <div className={`flex flex-row items-center py-[6px] px-4 ${bg_discount_gradient} rounded-[10px] mb-2`}>
-                    <img src={'https://i.imgur.com/5BZrGDw.png'} alt="discount" className="w-[32px] h-[32px]" />
-                    <p className={`${styles.paragraph} ml-2`}>
-                        <span className="text-white">20%</span> Discount For{" "}
-                        <span className="text-white">1 Month</span> Account
-                    </p>
-                </div>
+    return (
+        <section id="home" className={`flex md:flex-row flex-col ${styles.paddingY} ${styles.paddingX}`}>
+            <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}>
 
                 <div className="flex flex-row justify-between items-right w-full">
                     <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
-                        {movie.title}<br />
+                        {movie.name}<br />
                         {/* <span className={`${text_gradient}`}>{movie}</span> */}
                     </h1>
                 </div>
-
-
 
                 <h3 className="font-poppins font-semibold ss:text-[30px] text-[10px] text-white ss:leading-[100.8px] leading-[75px] w-full">
                     {/* Add Something like movies runtime R-Rated etc */}
@@ -78,22 +49,17 @@ const HeroSection = ({ movie }: moviesdbprops) => {
                 </div>
 
             </div>
-
-            <div className={`flex-1 flex ${styles.flexCenter} md:my-0 my-10 relative`}>
+            <div className={`flex-1  flex-col xl:px-0 sm:px-16 px-6`}>
                 <video
                     autoPlay
                     loop
                     muted
-                    className="w-[100%] h-[100%] relative z-0 pr-5 opacity-60"
+                    className="w-[100%] h-[100%] relative pr-5 opacity-100"
                 >
-                    <source src="https://avodmp4s3ww-a.akamaihd.net/ww_iad/b703/ee9d/dd0b/427a-8e55-92f19445b1d9/ed40b853-09eb-4536-94ea-ebf16a3885cf_video_720p_2500kbps_audio_aaclc_128kbps.mp4" type="video/mp4" />
+                    <source src={`${movie.trailerUrl}`} type="video/mp4" />
                 </video>
-                {/* gradient start */}
-                <div className={`absolute z-[0] w-[40%] h-[35%] top-0 ${pink_gradiant} `} />
-                <div className={`absolute z-[1] w-[80%] h-[80%] rounded-full ${black_gradiant} bottom-40`} />
-                <div className={`absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 ${blue_gradiant}`} />
-                {/* gradient end */}
             </div>
+
         </section>
     )
 }
